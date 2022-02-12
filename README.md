@@ -8,6 +8,14 @@ import "github.com/bitfield/checkepub"
 
 `checkepub` is a library and a CLI tool for validating [EPUB](https://en.wikipedia.org/wiki/EPUB) ebook files against the official [EPUB specification](https://www.iso.org/standard/53255.html).
 
+## Installing the tool
+
+You can install the tool using the `go install` command:
+
+```
+go install github.com/bitfield/checkepub/cmd/checkepub@latest
+```
+
 ## Using the tool
 
 If you want to validate an EPUB file named, for example, `test.epub`, run the following command:
