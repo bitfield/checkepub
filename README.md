@@ -41,6 +41,8 @@ and the command will exit with a non-zero exit status. This makes it suitable fo
 
 ## Using the library
 
+[Read the full documentation on pkg.go.dev](https://pkg.go.dev/github.com/bitfield/checkepub)
+
 To use `checkepub` in your own Go programs, import the package:
 
 ```go
@@ -58,6 +60,8 @@ The `result` struct has the following fields:
 * `Status`: if the file is valid, this will be `checkepub.StatusValid`, or `checkepub.StatusInvalid` otherwise
 * `Errors`: if there are validation errors, which are strings, this slice will contain each of them as a `checkepub.ValidationError`.
 
+If the error returned by `Check` is non-nil, then either there was a problem constructing or making the HTTP request, or the API responded with an unexpected HTTP status. In the latter case, the error will be of type `ErrUnexpectedHTTPStatus`.
+v
 ## Customisation
 
 To customise either the API URL or the HTTP client used to make the requests, first call `NewChecker`:

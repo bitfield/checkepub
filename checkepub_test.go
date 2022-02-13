@@ -1,6 +1,7 @@
 package checkepub_test
 
 import (
+	"errors"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -136,6 +137,21 @@ func TestCheckerGivesCorrectResultForInvalidEpubResponse(t *testing.T) {
 	}
 }
 
+func TestCheckerGivesCorrectResultForUnexpectedHTTPResponseStatus(t *testing.T) {
+	t.Parallel()
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.Error(w, "no soup for you", http.StatusBadRequest)
+	}))
+	defer ts.Close()
+	checker := checkepub.NewChecker()
+	checker.BaseURL = ts.URL
+	checker.HTTPClient = ts.Client()
+	_, err := checker.Check("testdata/dummy")
+	if !errors.As(err, &checkepub.ErrUnexpectedHTTPStatus{}) {
+		t.Fatalf("want ErrUnexpectedHTTPStatus, got %q", err)
+	}
+}
+
 func TestParseResponseCorrectForValidEpubResponse(t *testing.T) {
 	t.Parallel()
 	data, err := os.Open("testdata/valid.json")
@@ -144,7 +160,7 @@ func TestParseResponseCorrectForValidEpubResponse(t *testing.T) {
 	}
 	defer data.Close()
 	want := ValidResult
-	got, err := checkepub.ParseResponse(data)
+	got, err := checkepub.ParseResponseBody(data)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -161,7 +177,7 @@ func TestParseResponseCorrectForInvalidEpubResponse(t *testing.T) {
 	}
 	defer data.Close()
 	want := InvalidResult
-	got, err := checkepub.ParseResponse(data)
+	got, err := checkepub.ParseResponseBody(data)
 	if err != nil {
 		t.Fatal(err)
 	}
