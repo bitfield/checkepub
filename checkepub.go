@@ -32,7 +32,7 @@ func NewChecker() *Checker {
 // it to the HamePub Lint API, and returns a Result indicating whether the file
 // is valid, and if not, what validation errors were found. It returns error if
 // the HTTP request cannot be constructed or made, or if the HTTP response
-// status is anything other than 200 OK.∑
+// status is anything other than 200 OK.
 func (c *Checker) Check(epubPath string) (Result, error) {
 	f, err := os.Open(epubPath)
 	if err != nil {
@@ -82,6 +82,8 @@ func (r Result) String() string {
 // file is valid.
 type ValidationStatus string
 
+// These constants enumerate the possible validation statuses of the file being
+// checked.
 const (
 	StatusValid   ValidationStatus = "Valid"
 	StatusInvalid ValidationStatus = "Invalid"
