@@ -27,7 +27,7 @@ func TestAPIReturnsInvalidForInvalidFile(t *testing.T) {
 	want := checkepub.Result{
 		Status: checkepub.StatusInvalid,
 		Errors: []checkepub.ValidationError{
-			"RSC-005, ERROR, [Error while parsing file 'element \"metadata\" incomplete; missing required element \"dc:title\"'.], EPUB/content.opf (8-14)",
+			"RSC-005, ERROR, [Error while parsing file: element \"metadata\" incomplete; missing required element \"dc:title\"], EPUB/content.opf (8-14)",
 		},
 	}
 	got, err := checkepub.Check("testdata/invalid.epub")
