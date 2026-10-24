@@ -47,7 +47,7 @@ func TestBase64EncodeReaderCorrectlyEncodesInput(t *testing.T) {
 func TestNewCheckerReturnsCorrectlyConfiguredChecker(t *testing.T) {
 	t.Parallel()
 	want := &checkepub.Checker{
-		BaseURL: "http://lint.hametuha.pub/validator",
+		BaseURL: "https://lint.hametuha.pub/validator",
 		HTTPClient: &http.Client{
 			Timeout: 10 * time.Minute,
 		},

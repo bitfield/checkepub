@@ -21,7 +21,7 @@ type Checker struct {
 // call Check instead.
 func NewChecker() *Checker {
 	return &Checker{
-		BaseURL: "http://lint.hametuha.pub/validator",
+		BaseURL: "https://lint.hametuha.pub/validator",
 		HTTPClient: &http.Client{
 			Timeout: 10 * time.Minute,
 		},

@@ -95,10 +95,10 @@ result, err := checker.Check("test.epub")
 `checkepub` is a client for the REST API service provided by [HamePub Lint](https://lint.hametuha.pub/), which ultimately runs the [EPUBCheck tool](https://www.w3.org/publishing/epubcheck/). `checkepub` requires access to the HamePub API server at:
 
 ```
-http://lint.hametuha.pub/validator
+https://lint.hametuha.pub/validator
 ```
 
-Although an HTTPS endpoint is available, its certificate is currently (February 2022) expired, so `checkepub` uses the HTTP endpoint instead. Be aware that this means your EPUB data is sent unencrypted over the wire, so don't use this tool with confidential data.
+The API is served over HTTPS. Plain HTTP requests are redirected to HTTPS, which drops the POST body, so the HTTPS endpoint must be used.
 
 ## Terms of service
 
